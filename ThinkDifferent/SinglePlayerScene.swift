@@ -13,10 +13,8 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     
     var start: Bool = true
     
-    var cycles: Double = 0
-    var generationDelay = 0.5
-    var duration = 4.0
-    var generationLimit = 10.0
+    var generationDelay: Double = 0.40
+    var blockFallDuration = 5.0
 
     var blocks: [SKSpriteNode] = []
     
@@ -24,28 +22,50 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     var subPlayerNode: SKSpriteNode!
     
     var gameField: SKSpriteNode!
+    var outlineNode: SKCropNode!
     
-    var up = false
-    var down = false
-    var right = false
-    var left = false
+    
+    var joystick: Joystick!
     
     var generationAction: SKAction!
+    
+    var score = 0
+    
+    var lastTime: NSTimeInterval = 0
+    var blockSize: CGSize!
+    
+    override init(size: CGSize) {
+        super.init(size: size)
+        
+        let bwh = 0.042 * size.width // a nice ratio with the scree width
+        blockSize = CGSizeMake(bwh, bwh)
+        
+        let outlineWidth = size.width
+        let outlineHeight = size.height - 100
+        outlineNode = SKCropNode()
+        outlineNode.position = CGPointMake(size.width / 2, size.height - outlineHeight / 2)
+        outlineNode.maskNode = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(outlineWidth - 4, outlineHeight - 4))
+    
+        gameField = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(outlineWidth, outlineHeight))
+        gameField.position = CGPointMake(0, 0)
+        outlineNode.addChild(gameField)
+        //outlineNode added later
+        let extra = SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(outlineWidth, outlineHeight))
+        extra.position = CGPointMake(size.width / 2, size.height - outlineHeight / 2)
+        addChild(extra)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
         
         backgroundColor = SKColor.blackColor()
-        let outlineWidth = size.width
-        let outlineHeight = size.height - 100
-        let outline = SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(outlineWidth, outlineHeight))
-        outline.position = CGPointMake(size.width / 2, size.height - outline.size.height / 2)
-        addChild(outline)
-        gameField = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(outlineWidth - 4, outlineHeight - 3))
-        gameField.position = CGPointMake(0, 0)
-        outline.addChild(gameField)
-        
+        addChild(outlineNode)
         //draw the player and begin the block generation loop
+        drawController()
         drawPlayer()
         startGeneration()
     }
@@ -72,14 +92,15 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
             //set outline color (the node itself) and a dark blue as a child node
             let outColor = SKColor(red: 0.047, green: 0.78, blue: 1.0, alpha: 1.0)
             let inColor = SKColor(red: 0.047, green: 0.509, blue: 0.9, alpha: 1.0)
-            playerNode = SKSpriteNode(color: outColor, size: CGSizeMake(18, 18))
+            let wh = 0.0378 * size.width
+            playerNode = SKSpriteNode(color: outColor, size: CGSizeMake(wh, wh))
             let childSize = CGSizeMake(playerNode.size.width - 2, playerNode.size.height - 2)
             subPlayerNode = SKSpriteNode(color: inColor, size: childSize)
             playerNode.addChild(subPlayerNode)
-
-            
+            playerNode.physicsBody = SKPhysicsBody(rectangleOfSize: playerNode.size)
+            playerNode.physicsBody?.affectedByGravity = false
             //set position
-            playerNode.position = CGPointMake(gameField.size.width / 2, (gameField.size.height / 2) + 50)
+            playerNode.position = CGPointMake(0, 0)
             
             gameField.addChild(playerNode)
         }
@@ -88,35 +109,67 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     func addBlock() {
         //get random x value
         let arcRand = Int(arc4random_uniform(10000))
-        let r = Int(arcRand + 2) % (Int(size.width) - 2)//CGFloat((Int(abs(arc4random_uniform(1000))) + 2) % Int(size.width - 2))
-        let newBlock = SKSpriteNode(color: SKColor.whiteColor(), size: CGSizeMake(20, 20))
-        newBlock.position = CGPointMake(CGFloat(r), size.height + 20)
-        
+        let x = Int(size.width / 2) - (Int(arcRand) % Int(size.width))
+        let newBlock = SKSpriteNode(color: SKColor.whiteColor(), size: blockSize)
+        newBlock.position = CGPointMake(CGFloat(x), size.height)
         //give it a dropping action
-        newBlock.runAction(SKAction.moveToY(-10, duration: duration))
+        newBlock.runAction(SKAction.moveToY((gameField.size.height * -0.5) - 5 - newBlock.size.height / 2, duration: blockFallDuration))
         
         blocks.append(newBlock)
         gameField.addChild(newBlock)
     }
     
-    override func didSimulatePhysics() {
-        super.didSimulatePhysics()
+//    override func didSimulatePhysics() {
+//        super.didSimulatePhysics()
+//        if start {
+//            reactToCollisions()
+//        }
+//    }
+    
+    override func update(currentTime: NSTimeInterval) {
         if start {
             reactToCollisions()
+            
+            //see if joystick is moving
+            if joystick.velocity.x != 0 || joystick.velocity.y != 0 {
+                if lastTime == 0 {
+                    lastTime = currentTime
+                }
+                let delta = (CGFloat(currentTime - lastTime) + 1) / 12
+                lastTime = currentTime
+                
+                let vx = joystick.velocity.x * delta
+                let vy = joystick.velocity.y * delta
+//                let vector = CGVector(dx: vx, dy: vy)
+//                playerNode.physicsBody?.applyForce(vector)
+                playerNode.position.x += vx
+                playerNode.position.y += vy
+            }
         }
     }
     
     //MARK: Logic
     
-    func removeBlockNodeWithIndex(block: SKNode, index: Int){
+    func removeBlockNodeWithIndex(block: SKSpriteNode, index: Int){
         block.removeFromParent()
         blocks.removeAtIndex(index)
     }
     
     func reactToCollisions() {
-        var p_width = playerNode.size.width
-        var p_x = playerNode.position.x - p_width
-        var p_y = playerNode.position.y + p_width
+        let px = playerNode.position.x
+        let py = playerNode.position.y
+        let pw = playerNode.size.width
+        let ph = playerNode.size.height
+        
+//        if px + pw / 2 >= gameField.size.width {
+//            lose()
+//        } else if px - pw / 2 <= 0 {
+//            lose()
+//        } else if py + ph / 2 <= 0 {
+//            lose()
+//        } else if py - ph / 2 >= gameField.size.height / 2 {
+//            lose()
+//        }
         
         for (index, block) in enumerate(self.blocks) {
             var collided = false
@@ -129,7 +182,8 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
                 println("-----collided------")
                 removeBlockNodeWithIndex(block, index: index)
                 expandPlayer();
-            } else if (block.position.y < 0) {
+            } else if block.position.y <= (gameField.size.height * -0.5) - 5 - block.size.height / 2 {
+                println("removing block")
                 removeBlockNodeWithIndex(block, index: index)
             }
 
@@ -137,237 +191,42 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func expandPlayer() {
-        subPlayerNode.runAction(SKAction.resizeByWidth(10, height: 10, duration: 0.0))
-        playerNode.runAction(SKAction.resizeByWidth(10, height: 10, duration: 0.0))
+        //scaling bight be better than this
+        subPlayerNode.runAction(SKAction.resizeByWidth(10, height: 7, duration: 0.0))
+        playerNode.runAction(SKAction.resizeByWidth(10, height: 7, duration: 0.0))
         
-        generationDelay += 0.5
-    }
-}
-
-/*
-
-int x_max = 238;
-int y_max = 318;
-
-Double cycles = 0d; //how many cycles since a certain period
-
-ArrayList<Integer> x_blocks = new ArrayList<Integer>(100);
-ArrayList<Integer> y_blocks = new ArrayList<Integer>(100);
-int num_blocks = 0;
-
-
-
-int p_x = x_max / 2;
-int p_y = y_max / 2;
-int p_width = 9;//
-
-Boolean u = false;
-Boolean d = false;
-Boolean r = false;
-Boolean l = false;
-
-void setup() {
-    size(240, 320);
-    drawEnvironment();
-    
-    createPlayer();
-}
-
-//as the difficulty increases, increase drop speed
-void draw() {
-    //check for collisons and in-bound-ness at end of function
-    if (!inBounds()) {
-        println("game end");
-        fill(255, 60, 60);
-        text("Game Over!", 90, 157);
-        String out = "Score: " + cycles;
-        text(out, 90, 169);
-        return;
-    }
-    println(cycles);
-    
-    //if there was a collision, do what u got to do
-    collided();
-    
-    //make the 10 random so not all fall in lines
-    int cycleLimit = (int)(p_width - sqrt(p_width - 9));
-    if (cycles % cycleLimit == 0) {
-        newBlock();
+        generationDelay += 0.03
     }
     
-    for (int i = 0; i < num_blocks; i++) {
-        //stupid java, not very elegant
-        y_blocks.set(i, y_blocks.get(i) + 1);//increase y pos by 1
+    //MARK: change in game flow
+    
+    func lose() {
+        println("game end")
+        start = false
+        //pause all actions
+        removeAllActions()
     }
     
-    if (u || d || r || l) {
-        editPlayerForInput();
-    }
     
-    drawEnvironment();
-    updateBlocks();
-    updatePlayer();
+    //MARK: Drawing Initializers
     
-    cycles += 1;
-    //delay(2);//changing this will decrease the chance of getting input :(
-}
-
-void editPlayerForInput() {
-    if (u) {
-        p_y--;
-    }
-    if (d) {
-        p_y++;
-    }
-    if (r) {
-        p_x++;
-    }
-    if (l) {
-        p_x--;
-    }
-}
-
-void keyPressed() {
-    setKey(keyCode, true);
-    if (key == 'q') {
-        expandPlayer();
-    }
-}
-
-void expandPlayer() {
-    p_x -= 5;
-    p_y -= 5;
-    p_width += 7;
-}
-
-void keyReleased() {
-    setKey(keyCode, false);
-}
-
-void setKey(int k, Boolean on) {
-    if (k == UP) {
-        u = on;
-    }
-    if (k == DOWN) {
-        d = on;
-    }
-    if (k == RIGHT) {
-        r = on;
-    }
-    if (k == LEFT) {
-        l = on;
-    }
-}
-
-void updatePlayer() {
-    stroke(12, 200, 255);
-    fill(12, 130, 230);
-    rect(p_x, p_y, p_width, p_width);
-}
-
-void createPlayer() {
-    stroke(12, 200, 255);
-    fill(12, 130, 230);
-    rect(p_x, p_y, p_width, p_width);
-}
-
-void drawEnvironment() {
-    background(0);
-    
-    stroke(255, 0, 0);
-    fill(0, 0, 0, 0);
-    rect(0, 0, 239, 319);
-    
-    fill(255, 60, 60);
-    String str = cycles.toString();
-    String out = "Score: " + str;
-    text(out, 2, 317);
-}
-
-void updateBlocks() {
-    stroke(255);
-    fill(255);
-    for (int i = 0; i < num_blocks; i++) {
-        int x = x_blocks.get(i);
-        int y = y_blocks.get(i);
-        if (y == y_max + 2) {
-            //remove from y bkac
-            //y_block
-            println("removing block...");
-            removeBlockAtIndex(i);
-        } else {
-            rect(x, y, 10, 10);
-        }
-    }
-}
-
-void removeBlockAtIndex(int index) {
-    y_blocks.remove(index);
-    x_blocks.remove(index);
-    num_blocks--;
-}
-
-void newBlock() {
-    //random x for block
-    float r = 1.0 + random(228);
-    stroke(255);
-    fill(255);
-    rect(r, 1, 10, 10);
-    //add to an array
-    num_blocks++;
-    x_blocks.add(int(r));//give x position (since all other is given)
-    y_blocks.add(1);//default y value at drop start
-}
-
-void collided() {
-    Boolean top;
-    Boolean bottom;
-    Boolean right;
-    Boolean left;
-    
-    for (int i = 0; i < num_blocks; i++) {
-        int testx = x_blocks.get(i);
-        int testy = y_blocks.get(i);
+    func drawController() {
+//        let height = (outlineNode.position.y - outlineNode.frame.size.height / 2) - 5
+//        arrowNode.size = CGSizeMake(height, height)
+//        arrowNode.position = CGPointMake(size.width - arrowNode.size.width / 2, arrowNode.size.height / 2)
         
-        if (p_x + p_width == testx) {//right side to left
-            if (p_y - (testy + 10) <= 0 && testy - (p_y + p_width) <= 0) {
-                expandPlayer();
-                removeBlockAtIndex(i);
-            }
-        } else if (p_x == testx + 10) {//left to right
-            if (p_y - (testy + 10) <= 0 && testy - (p_y + p_width) <= 0) {
-                expandPlayer();
-                removeBlockAtIndex(i);
-            }
-        } else if (p_y == testy + 10) {//top to bottom
-            if (p_x - (testx + 10) <= 0 && testx - (p_x + p_width) <= 0) {
-                expandPlayer();
-                removeBlockAtIndex(i);
-            }
-        } else if (p_y + p_width == testy) {//bottom to top
-            if (p_x - (testx + 10) <= 0 && testx - (p_x + p_width) <= 0) {
-                expandPlayer();
-                removeBlockAtIndex(i);
-            }
-        }
+//        gameController = SKSpriteNode(imageNamed: "joystick.png")
+//        gameController.size = CGSizeMake(arrowNode.size.height / 1.7, arrowNode.size.width / 1.7)
+//        gameController.position = arrowNode.position
+//        addChild(gameController)
+        let backNode = SKSpriteNode(imageNamed: "backdrop.png")
+        let height: CGFloat = 100
+        backNode.size = CGSizeMake(height, height)
+        let thumbNode = SKSpriteNode(imageNamed: "thumb.png")
+        thumbNode.size = CGSizeMake(height / 1.8, height / 1.8)
+        joystick = Joystick(thumb: thumbNode, andBackdrop: backNode)
+        
+        joystick.position = CGPointMake(size.width - height / 2, height / 2)
+        addChild(joystick)
     }
 }
-
-Boolean inBounds() {
-    if (p_x <= 1) {
-        return false;
-    }
-    if (p_y <= 1) {
-        return false;
-    }
-    if (p_x + p_width >= x_max) {
-        return false;
-    }
-    if (p_y + p_width >= y_max) {
-        return false;
-    }
-    
-    return true;
-}
-*/
-

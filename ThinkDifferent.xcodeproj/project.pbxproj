@@ -14,13 +14,17 @@
 		3D1F7F831ABC88F300061DE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F7F821ABC88F300061DE9 /* Images.xcassets */; };
 		3D1F7F861ABC88F300061DE9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F7F841ABC88F300061DE9 /* LaunchScreen.xib */; };
 		3D1F7F921ABC88F400061DE9 /* ThinkDifferentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F7F911ABC88F400061DE9 /* ThinkDifferentTests.swift */; };
+		3D41F1021ACF27F800E832C9 /* backdrop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41F1011ACF27F800E832C9 /* backdrop@2x.png */; };
 		3D6D71931ACDB9EA0080DBB8 /* scroll.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D71921ACDB9EA0080DBB8 /* scroll.caf */; };
 		3D8A637A1ACDE84F00AE50A6 /* step.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A63791ACDE84F00AE50A6 /* step.caf */; };
-		3D8A637E1ACDEA3700AE50A6 /* ch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637B1ACDEA3700AE50A6 /* ch1.png */; };
-		3D8A637F1ACDEA3700AE50A6 /* ch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637C1ACDEA3700AE50A6 /* ch2.png */; };
-		3D8A63801ACDEA3700AE50A6 /* ch3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637D1ACDEA3700AE50A6 /* ch3.png */; };
+		3D8A637E1ACDEA3700AE50A6 /* ch1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637B1ACDEA3700AE50A6 /* ch1@2x.png */; };
+		3D8A637F1ACDEA3700AE50A6 /* ch2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637C1ACDEA3700AE50A6 /* ch2@2x.png */; };
+		3D8A63801ACDEA3700AE50A6 /* ch3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637D1ACDEA3700AE50A6 /* ch3@2x.png */; };
 		3D8A63831ACDFF5700AE50A6 /* select.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A63821ACDFF5700AE50A6 /* select.caf */; };
+		3D936C261AD9F22D00A73E69 /* Joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D936C241AD9F22D00A73E69 /* Joystick.m */; };
+		3D936C271AD9F22D00A73E69 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3D936C251AD9F22D00A73E69 /* README.md */; };
 		3DBCD8D81ACCB08000149E99 /* prstart.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DBCD8D61ACC99BA00149E99 /* prstart.ttf */; };
+		3DCD9C661AD565E800BDCD56 /* thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DCD9C651AD565E800BDCD56 /* thumb@2x.png */; };
 		3DE3BD381ABCAE0300777F01 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE3BD371ABCAE0300777F01 /* SpriteKit.framework */; };
 		3DE3BD3A1ABCAE3A00777F01 /* SinglePlayerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */; };
 /* End PBXBuildFile section */
@@ -47,13 +51,19 @@
 		3D1F7F8B1ABC88F300061DE9 /* ThinkDifferentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThinkDifferentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1F7F901ABC88F400061DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D1F7F911ABC88F400061DE9 /* ThinkDifferentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkDifferentTests.swift; sourceTree = "<group>"; };
+		3D41F1011ACF27F800E832C9 /* backdrop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backdrop@2x.png"; sourceTree = "<group>"; };
 		3D6D71921ACDB9EA0080DBB8 /* scroll.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = scroll.caf; sourceTree = "<group>"; };
 		3D8A63791ACDE84F00AE50A6 /* step.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = step.caf; sourceTree = "<group>"; };
-		3D8A637B1ACDEA3700AE50A6 /* ch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ch1.png; sourceTree = "<group>"; };
-		3D8A637C1ACDEA3700AE50A6 /* ch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ch2.png; sourceTree = "<group>"; };
-		3D8A637D1ACDEA3700AE50A6 /* ch3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ch3.png; sourceTree = "<group>"; };
+		3D8A637B1ACDEA3700AE50A6 /* ch1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ch1@2x.png"; sourceTree = "<group>"; };
+		3D8A637C1ACDEA3700AE50A6 /* ch2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ch2@2x.png"; sourceTree = "<group>"; };
+		3D8A637D1ACDEA3700AE50A6 /* ch3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ch3@2x.png"; sourceTree = "<group>"; };
 		3D8A63821ACDFF5700AE50A6 /* select.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = select.caf; sourceTree = "<group>"; };
+		3D936C221AD9F22A00A73E69 /* ThinkDifferent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThinkDifferent-Bridging-Header.h"; sourceTree = "<group>"; };
+		3D936C231AD9F22D00A73E69 /* Joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Joystick.h; sourceTree = "<group>"; };
+		3D936C241AD9F22D00A73E69 /* Joystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Joystick.m; sourceTree = "<group>"; };
+		3D936C251AD9F22D00A73E69 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3DBCD8D61ACC99BA00149E99 /* prstart.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = prstart.ttf; sourceTree = "<group>"; };
+		3DCD9C651AD565E800BDCD56 /* thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb@2x.png"; sourceTree = "<group>"; };
 		3DE3BD371ABCAE0300777F01 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +109,9 @@
 		3D1F7F781ABC88ED00061DE9 /* ThinkDifferent */ = {
 			isa = PBXGroup;
 			children = (
+				3D936C231AD9F22D00A73E69 /* Joystick.h */,
+				3D936C241AD9F22D00A73E69 /* Joystick.m */,
+				3D936C251AD9F22D00A73E69 /* README.md */,
 				3DBCD8D51ACC99BA00149E99 /* Press Start */,
 				3D1F7F7B1ABC88F000061DE9 /* AppDelegate.swift */,
 				3D1F7F7D1ABC88F100061DE9 /* ViewController.swift */,
@@ -110,8 +123,11 @@
 				3D8A63821ACDFF5700AE50A6 /* select.caf */,
 				3D8A63791ACDE84F00AE50A6 /* step.caf */,
 				3D6D71921ACDB9EA0080DBB8 /* scroll.caf */,
+				3D41F1011ACF27F800E832C9 /* backdrop@2x.png */,
+				3DCD9C651AD565E800BDCD56 /* thumb@2x.png */,
 				3D8A63811ACDEB2C00AE50A6 /* character */,
 				3D1F7F791ABC88EF00061DE9 /* Supporting Files */,
+				3D936C221AD9F22A00A73E69 /* ThinkDifferent-Bridging-Header.h */,
 			);
 			path = ThinkDifferent;
 			sourceTree = "<group>";
@@ -144,9 +160,9 @@
 		3D8A63811ACDEB2C00AE50A6 /* character */ = {
 			isa = PBXGroup;
 			children = (
-				3D8A637B1ACDEA3700AE50A6 /* ch1.png */,
-				3D8A637C1ACDEA3700AE50A6 /* ch2.png */,
-				3D8A637D1ACDEA3700AE50A6 /* ch3.png */,
+				3D8A637B1ACDEA3700AE50A6 /* ch1@2x.png */,
+				3D8A637C1ACDEA3700AE50A6 /* ch2@2x.png */,
+				3D8A637D1ACDEA3700AE50A6 /* ch3@2x.png */,
 			);
 			name = character;
 			sourceTree = "<group>";
@@ -240,16 +256,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D8A63801ACDEA3700AE50A6 /* ch3.png in Resources */,
+				3D8A63801ACDEA3700AE50A6 /* ch3@2x.png in Resources */,
 				3D8A637A1ACDE84F00AE50A6 /* step.caf in Resources */,
 				3DBCD8D81ACCB08000149E99 /* prstart.ttf in Resources */,
-				3D8A637E1ACDEA3700AE50A6 /* ch1.png in Resources */,
+				3DCD9C661AD565E800BDCD56 /* thumb@2x.png in Resources */,
+				3D41F1021ACF27F800E832C9 /* backdrop@2x.png in Resources */,
+				3D8A637E1ACDEA3700AE50A6 /* ch1@2x.png in Resources */,
 				3D8A63831ACDFF5700AE50A6 /* select.caf in Resources */,
 				3D6D71931ACDB9EA0080DBB8 /* scroll.caf in Resources */,
 				3D1F7F811ABC88F100061DE9 /* Main.storyboard in Resources */,
 				3D1F7F861ABC88F300061DE9 /* LaunchScreen.xib in Resources */,
 				3D1F7F831ABC88F300061DE9 /* Images.xcassets in Resources */,
-				3D8A637F1ACDEA3700AE50A6 /* ch2.png in Resources */,
+				3D8A637F1ACDEA3700AE50A6 /* ch2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +285,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D936C271AD9F22D00A73E69 /* README.md in Sources */,
+				3D936C261AD9F22D00A73E69 /* Joystick.m in Sources */,
 				3DE3BD3A1ABCAE3A00777F01 /* SinglePlayerScene.swift in Sources */,
 				3D1996591ACB40FB0057CD72 /* MenuScene.swift in Sources */,
 				3D1F7F7E1ABC88F100061DE9 /* ViewController.swift in Sources */,
@@ -346,7 +366,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -383,7 +403,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -396,11 +416,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ThinkDifferent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ThinkDifferent/ThinkDifferent-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -409,11 +432,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ThinkDifferent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ThinkDifferent/ThinkDifferent-Bridging-Header.h";
 			};
 			name = Release;
 		};

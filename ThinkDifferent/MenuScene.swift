@@ -52,6 +52,7 @@ class MenuScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         
+        //below must be in this order!!
         initTelevision()
         initRemote()
         initMenuLabels()
@@ -85,6 +86,17 @@ class MenuScene: SKScene {
             infoLabel.fontSize = 9
             infoLabel.position = CGPointMake(size.width - infoLabel.frame.size.width / 2, 0)
             addChild(infoLabel)
+            
+            
+//            let bp = UIBezierPath()
+//            bp.moveToPoint(CGPointMake(46, 12))
+//            bp.addLineToPoint(CGPointMake(60, 25))
+//            bp.addLineToPoint(CGPointMake(70, 2))
+//            let l = CAShapeLayer()
+//            l.path = bp.CGPath
+//            l.strokeColor = SKColor.redColor().CGColor
+//            l.lineWidth = 2
+//            view.layer.addSublayer(l)
             
             contentCreated = true
         }
@@ -139,7 +151,7 @@ class MenuScene: SKScene {
     
     func initTelevision() {
         fontSizeForDevice()
-        let tvOffset: CGFloat = 15;
+        let tvOffset: CGFloat = 25;
         let tvWidth = size.width / 2
         let tvHeight = tvWidth / 1.2
         let tvSize = CGSizeMake(tvWidth, tvHeight)//adjust height proportion
@@ -232,10 +244,10 @@ class MenuScene: SKScene {
     
     //MARK: - User Interaction
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         
-        let touch: UITouch = touches.anyObject() as UITouch
+        let touch: UITouch = touches.first as! UITouch
         let loc = touch.locationInNode(self)
         if (CGRectContainsPoint(singleLabel.frame, loc)) {
             println("single")
@@ -248,7 +260,7 @@ class MenuScene: SKScene {
             selection = .More
         } else {
             let loc = touch.locationInNode(remoteNode)
-             if CGRectContainsPoint(remoteUpNode.frame, loc) {
+            if CGRectContainsPoint(remoteUpNode.frame, loc) {
                 println("up")
                 var raw = selection.rawValue
                 if raw == 0 {
@@ -285,6 +297,7 @@ class MenuScene: SKScene {
                 
             }
         }
+
     }
     
     //MARK: Transitions to game
