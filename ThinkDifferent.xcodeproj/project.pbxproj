@@ -14,6 +14,7 @@
 		3D1F7F831ABC88F300061DE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F7F821ABC88F300061DE9 /* Images.xcassets */; };
 		3D1F7F861ABC88F300061DE9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F7F841ABC88F300061DE9 /* LaunchScreen.xib */; };
 		3D1F7F921ABC88F400061DE9 /* ThinkDifferentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F7F911ABC88F400061DE9 /* ThinkDifferentTests.swift */; };
+		3D2DFD5F1ADC9A8C005D9F07 /* Atari Classic Chunky in Resources */ = {isa = PBXBuildFile; fileRef = 3D2DFD5E1ADC9A8C005D9F07 /* Atari Classic Chunky */; };
 		3D41F1021ACF27F800E832C9 /* backdrop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41F1011ACF27F800E832C9 /* backdrop@2x.png */; };
 		3D6D71931ACDB9EA0080DBB8 /* scroll.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D71921ACDB9EA0080DBB8 /* scroll.caf */; };
 		3D8A637A1ACDE84F00AE50A6 /* step.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A63791ACDE84F00AE50A6 /* step.caf */; };
@@ -51,6 +52,7 @@
 		3D1F7F8B1ABC88F300061DE9 /* ThinkDifferentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThinkDifferentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1F7F901ABC88F400061DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D1F7F911ABC88F400061DE9 /* ThinkDifferentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkDifferentTests.swift; sourceTree = "<group>"; };
+		3D2DFD5E1ADC9A8C005D9F07 /* Atari Classic Chunky */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Atari Classic Chunky"; sourceTree = "<group>"; };
 		3D41F1011ACF27F800E832C9 /* backdrop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backdrop@2x.png"; sourceTree = "<group>"; };
 		3D6D71921ACDB9EA0080DBB8 /* scroll.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = scroll.caf; sourceTree = "<group>"; };
 		3D8A63791ACDE84F00AE50A6 /* step.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = step.caf; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				3D936C231AD9F22D00A73E69 /* Joystick.h */,
 				3D936C241AD9F22D00A73E69 /* Joystick.m */,
 				3D936C251AD9F22D00A73E69 /* README.md */,
+				3D2DFD5E1ADC9A8C005D9F07 /* Atari Classic Chunky */,
 				3DBCD8D51ACC99BA00149E99 /* Press Start */,
 				3D1F7F7B1ABC88F000061DE9 /* AppDelegate.swift */,
 				3D1F7F7D1ABC88F100061DE9 /* ViewController.swift */,
@@ -260,6 +263,7 @@
 				3D8A637A1ACDE84F00AE50A6 /* step.caf in Resources */,
 				3DBCD8D81ACCB08000149E99 /* prstart.ttf in Resources */,
 				3DCD9C661AD565E800BDCD56 /* thumb@2x.png in Resources */,
+				3D2DFD5F1ADC9A8C005D9F07 /* Atari Classic Chunky in Resources */,
 				3D41F1021ACF27F800E832C9 /* backdrop@2x.png in Resources */,
 				3D8A637E1ACDEA3700AE50A6 /* ch1@2x.png in Resources */,
 				3D8A63831ACDFF5700AE50A6 /* select.caf in Resources */,

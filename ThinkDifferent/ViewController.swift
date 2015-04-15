@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         skView.showsFPS = true
         skView.showsDrawCount = true
         skView.showsNodeCount = true
+        skView.ignoresSiblingOrder = true
     }
     
 }

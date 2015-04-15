@@ -11,9 +11,9 @@ import SpriteKit
 
 class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     
-    var start: Bool = true
+    var playing: Bool = true
     
-    var generationDelay: Double = 0.40
+    var generationDelay: Double = 0.23
     var blockFallDuration = 5.0
 
     var blocks: [SKSpriteNode] = []
@@ -37,6 +37,7 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     override init(size: CGSize) {
         super.init(size: size)
         
+        blockFallDuration = Double(size.height) * 0.017
         let bwh = 0.042 * size.width // a nice ratio with the scree width
         blockSize = CGSizeMake(bwh, bwh)
         
@@ -72,8 +73,6 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: - Drawing Functions
     
-    ///////////////////////////Main loop below/////////////////////////////
-    
     func startGeneration() {
         let blockAction = SKAction.runBlock { () -> Void in
             self.addBlock()
@@ -83,8 +82,6 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         generationAction = SKAction.repeatActionForever(sequence)
         runAction(generationAction)
     }
-    
-    ///////////////////////////Main loop above/////////////////////////////
     
     func drawPlayer() {
         //draw/ update player
@@ -97,8 +94,6 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
             let childSize = CGSizeMake(playerNode.size.width - 2, playerNode.size.height - 2)
             subPlayerNode = SKSpriteNode(color: inColor, size: childSize)
             playerNode.addChild(subPlayerNode)
-            playerNode.physicsBody = SKPhysicsBody(rectangleOfSize: playerNode.size)
-            playerNode.physicsBody?.affectedByGravity = false
             //set position
             playerNode.position = CGPointMake(0, 0)
             
@@ -111,7 +106,7 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         let arcRand = Int(arc4random_uniform(10000))
         let x = Int(size.width / 2) - (Int(arcRand) % Int(size.width))
         let newBlock = SKSpriteNode(color: SKColor.whiteColor(), size: blockSize)
-        newBlock.position = CGPointMake(CGFloat(x), size.height)
+        newBlock.position = CGPointMake(CGFloat(x), gameField.size.height / 2)
         //give it a dropping action
         newBlock.runAction(SKAction.moveToY((gameField.size.height * -0.5) - 5 - newBlock.size.height / 2, duration: blockFallDuration))
         
@@ -119,17 +114,15 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         gameField.addChild(newBlock)
     }
     
-//    override func didSimulatePhysics() {
-//        super.didSimulatePhysics()
-//        if start {
-//            reactToCollisions()
-//        }
-//    }
+    override func didSimulatePhysics() {
+        super.didSimulatePhysics()
+        if playing {
+            reactToCollisions()
+        }
+    }
     
     override func update(currentTime: NSTimeInterval) {
-        if start {
-            reactToCollisions()
-            
+        if playing {
             //see if joystick is moving
             if joystick.velocity.x != 0 || joystick.velocity.y != 0 {
                 if lastTime == 0 {
@@ -153,6 +146,8 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     func removeBlockNodeWithIndex(block: SKSpriteNode, index: Int){
         block.removeFromParent()
         blocks.removeAtIndex(index)
+        block.removeAllActions()
+        score++
     }
     
     func reactToCollisions() {
@@ -161,15 +156,19 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         let pw = playerNode.size.width
         let ph = playerNode.size.height
         
-//        if px + pw / 2 >= gameField.size.width {
-//            lose()
-//        } else if px - pw / 2 <= 0 {
-//            lose()
-//        } else if py + ph / 2 <= 0 {
-//            lose()
-//        } else if py - ph / 2 >= gameField.size.height / 2 {
-//            lose()
-//        }
+        if px + pw / 2 >= gameField.size.width / 2 {
+            println("1")
+            lose()
+        } else if px - pw / 2 <= -1 * gameField.size.width / 2 {
+            println("2")
+            lose()
+        } else if py + ph / 2 >= gameField.size.height / 2 {
+            println("3")
+            lose()
+        } else if py - ph / 2 <= -1 * gameField.size.height / 2 {
+            println("4")
+            lose()
+        }
         
         for (index, block) in enumerate(self.blocks) {
             var collided = false
@@ -186,39 +185,32 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
                 println("removing block")
                 removeBlockNodeWithIndex(block, index: index)
             }
-
         }
     }
     
     func expandPlayer() {
         //scaling bight be better than this
-        subPlayerNode.runAction(SKAction.resizeByWidth(10, height: 7, duration: 0.0))
-        playerNode.runAction(SKAction.resizeByWidth(10, height: 7, duration: 0.0))
+        subPlayerNode.runAction(SKAction.resizeByWidth(7, height: 7, duration: 0.0))
+        playerNode.runAction(SKAction.resizeByWidth(7, height: 7, duration: 0.0))
         
-        generationDelay += 0.03
+        generationDelay += 0.04
     }
     
     //MARK: change in game flow
     
     func lose() {
         println("game end")
-        start = false
+        playing = false
         //pause all actions
         removeAllActions()
+        for block: SKSpriteNode in blocks {
+            block.runAction(SKAction.scaleTo(0, duration: 2.0))
+        }
     }
-    
     
     //MARK: Drawing Initializers
     
     func drawController() {
-//        let height = (outlineNode.position.y - outlineNode.frame.size.height / 2) - 5
-//        arrowNode.size = CGSizeMake(height, height)
-//        arrowNode.position = CGPointMake(size.width - arrowNode.size.width / 2, arrowNode.size.height / 2)
-        
-//        gameController = SKSpriteNode(imageNamed: "joystick.png")
-//        gameController.size = CGSizeMake(arrowNode.size.height / 1.7, arrowNode.size.width / 1.7)
-//        gameController.position = arrowNode.position
-//        addChild(gameController)
         let backNode = SKSpriteNode(imageNamed: "backdrop.png")
         let height: CGFloat = 100
         backNode.size = CGSizeMake(height, height)
