@@ -111,16 +111,14 @@
 		3D1F7F781ABC88ED00061DE9 /* ThinkDifferent */ = {
 			isa = PBXGroup;
 			children = (
-				3D936C231AD9F22D00A73E69 /* Joystick.h */,
-				3D936C241AD9F22D00A73E69 /* Joystick.m */,
-				3D936C251AD9F22D00A73E69 /* README.md */,
+				3DBB72861C4BE5BC00E49741 /* Joystick */,
 				3D2DFD5E1ADC9A8C005D9F07 /* Atari Classic Chunky */,
 				3DBCD8D51ACC99BA00149E99 /* Press Start */,
 				3D1F7F7B1ABC88F000061DE9 /* AppDelegate.swift */,
 				3D1F7F7D1ABC88F100061DE9 /* ViewController.swift */,
-				3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */,
-				3D1996581ACB40FB0057CD72 /* MenuScene.swift */,
 				3D1F7F7F1ABC88F100061DE9 /* Main.storyboard */,
+				3D1996581ACB40FB0057CD72 /* MenuScene.swift */,
+				3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */,
 				3D1F7F821ABC88F300061DE9 /* Images.xcassets */,
 				3D1F7F841ABC88F300061DE9 /* LaunchScreen.xib */,
 				3D8A63821ACDFF5700AE50A6 /* select.caf */,
@@ -168,6 +166,16 @@
 				3D8A637D1ACDEA3700AE50A6 /* ch3@2x.png */,
 			);
 			name = character;
+			sourceTree = "<group>";
+		};
+		3DBB72861C4BE5BC00E49741 /* Joystick */ = {
+			isa = PBXGroup;
+			children = (
+				3D936C231AD9F22D00A73E69 /* Joystick.h */,
+				3D936C241AD9F22D00A73E69 /* Joystick.m */,
+				3D936C251AD9F22D00A73E69 /* README.md */,
+			);
+			name = Joystick;
 			sourceTree = "<group>";
 		};
 		3DBCD8D51ACC99BA00149E99 /* Press Start */ = {

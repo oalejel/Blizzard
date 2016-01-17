@@ -139,7 +139,7 @@ class MenuScene: SKScene {
             let tvX = tvNode.frame.origin.x
             let tvY = tvNode.frame.origin.y
             let tvH = tvNode.frame.size.height
-            let tvW = tvNode.frame.size.width
+            //let tvW = tvNode.frame.size.width
             
             //labels have their anchor points at the bottom center
             let yOffset = (tvH / 3) + singleLabel.frame.size.height
