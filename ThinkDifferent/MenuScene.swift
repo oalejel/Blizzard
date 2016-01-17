@@ -69,23 +69,23 @@ class MenuScene: SKScene {
         if !contentCreated {
             backgroundColor = UIColor.blackColor()
             
-            //draw child nodes/subviews here
-            addChild(tvNode)
-            addChild(singleLabel)
-            addChild(multiplayerLabel)
-            addChild(moreLabel)
-            addChild(remoteNode)
-            addChild(characterNode)
-            
-            //try to get an ease in movement
-            let remoteSeq = SKAction.sequence([SKAction.waitForDuration(2.0), SKAction.moveToY(0, duration: 0.8)])
-            remoteNode.runAction(remoteSeq)
-            
-            let infoLabel = SKLabelNode(fontNamed: "Press Start")
-            infoLabel.text = "© 2015 omar al-ejel"
-            infoLabel.fontSize = 9
-            infoLabel.position = CGPointMake(size.width - infoLabel.frame.size.width / 2, 0)
-            addChild(infoLabel)
+//            //draw child nodes/subviews here
+//            addChild(tvNode)
+//            addChild(singleLabel)
+//            addChild(multiplayerLabel)
+//            addChild(moreLabel)
+//            addChild(remoteNode)
+//            addChild(characterNode)
+//            
+//            //try to get an ease in movement
+//            let remoteSeq = SKAction.sequence([SKAction.waitForDuration(2.0), SKAction.moveToY(0, duration: 0.8)])
+//            remoteNode.runAction(remoteSeq)
+//            
+//            let infoLabel = SKLabelNode(fontNamed: "Press Start")
+//            infoLabel.text = "© 2015 omar al-ejel"
+//            infoLabel.fontSize = 9
+//            infoLabel.position = CGPointMake(size.width - infoLabel.frame.size.width / 2, 0)
+//            addChild(infoLabel)
             
             
 //            let bp = UIBezierPath()
