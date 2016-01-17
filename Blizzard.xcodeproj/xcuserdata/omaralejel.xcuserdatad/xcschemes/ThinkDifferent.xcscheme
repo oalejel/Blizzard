@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3D1F7F751ABC88EC00061DE9"
-               BuildableName = "ThinkDifferent.app"
-               BlueprintName = "ThinkDifferent"
-               ReferencedContainer = "container:ThinkDifferent.xcodeproj">
+               BuildableName = "Blizzard.app"
+               BlueprintName = "Blizzard"
+               ReferencedContainer = "container:Blizzard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,27 +29,27 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3D1F7F8A1ABC88F300061DE9"
-               BuildableName = "ThinkDifferentTests.xctest"
-               BlueprintName = "ThinkDifferentTests"
-               ReferencedContainer = "container:ThinkDifferent.xcodeproj">
+               BuildableName = "Blizzard.xctest"
+               BlueprintName = "BlizzardTests"
+               ReferencedContainer = "container:Blizzard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3D1F7F8A1ABC88F300061DE9"
-               BuildableName = "ThinkDifferentTests.xctest"
-               BlueprintName = "ThinkDifferentTests"
-               ReferencedContainer = "container:ThinkDifferent.xcodeproj">
+               BuildableName = "Blizzard.xctest"
+               BlueprintName = "BlizzardTests"
+               ReferencedContainer = "container:Blizzard.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,48 +57,51 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3D1F7F751ABC88EC00061DE9"
-            BuildableName = "ThinkDifferent.app"
-            BlueprintName = "ThinkDifferent"
-            ReferencedContainer = "container:ThinkDifferent.xcodeproj">
+            BuildableName = "Blizzard.app"
+            BlueprintName = "Blizzard"
+            ReferencedContainer = "container:Blizzard.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3D1F7F751ABC88EC00061DE9"
-            BuildableName = "ThinkDifferent.app"
-            BlueprintName = "ThinkDifferent"
-            ReferencedContainer = "container:ThinkDifferent.xcodeproj">
+            BuildableName = "Blizzard.app"
+            BlueprintName = "Blizzard"
+            ReferencedContainer = "container:Blizzard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3D1F7F751ABC88EC00061DE9"
-            BuildableName = "ThinkDifferent.app"
-            BlueprintName = "ThinkDifferent"
-            ReferencedContainer = "container:ThinkDifferent.xcodeproj">
+            BuildableName = "Blizzard.app"
+            BlueprintName = "Blizzard"
+            ReferencedContainer = "container:Blizzard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

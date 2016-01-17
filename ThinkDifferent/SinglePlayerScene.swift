@@ -157,20 +157,20 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         let ph = playerNode.size.height
         
         if px + pw / 2 >= gameField.size.width / 2 {
-            println("1")
+            print("1")
             lose()
         } else if px - pw / 2 <= -1 * gameField.size.width / 2 {
-            println("2")
+            print("2")
             lose()
         } else if py + ph / 2 >= gameField.size.height / 2 {
-            println("3")
+            print("3")
             lose()
         } else if py - ph / 2 <= -1 * gameField.size.height / 2 {
-            println("4")
+            print("4")
             lose()
         }
         
-        for (index, block) in enumerate(self.blocks) {
+        for (index, block) in self.blocks.enumerate() {
             var collided = false
             
             if CGRectIntersectsRect(playerNode.frame, block.frame) {
@@ -178,11 +178,11 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
             }
             
             if collided {
-                println("-----collided------")
+                print("-----collided------")
                 removeBlockNodeWithIndex(block, index: index)
                 expandPlayer();
             } else if block.position.y <= (gameField.size.height * -0.5) - 5 - block.size.height / 2 {
-                println("removing block")
+                print("removing block")
                 removeBlockNodeWithIndex(block, index: index)
             }
         }
@@ -199,7 +199,7 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     //MARK: change in game flow
     
     func lose() {
-        println("game end")
+        print("game end")
         playing = false
         //pause all actions
         removeAllActions()

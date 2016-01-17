@@ -233,7 +233,7 @@ class MenuScene: SKScene {
     }
     
     func fontSizeForDevice() -> CGFloat {
-        let idiom = UIDevice.currentDevice().userInterfaceIdiom
+        //let idiom = UIDevice.currentDevice().userInterfaceIdiom
         return 15 
     }
     
@@ -244,24 +244,24 @@ class MenuScene: SKScene {
     
     //MARK: - User Interaction
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         
-        let touch: UITouch = touches.first as! UITouch
-        let loc = touch.locationInNode(self)
+        let touch = touches.first
+        let loc = touch!.locationInNode(self)
         if (CGRectContainsPoint(singleLabel.frame, loc)) {
-            println("single")
+            print("single")
             selection = .Single
         } else if CGRectContainsPoint(multiplayerLabel.frame, loc) {
-            println("multi")
+            print("multi")
             selection = .Multiplayer
         } else if CGRectContainsPoint(moreLabel.frame, loc) {
-            println("more")
+            print("more")
             selection = .More
         } else {
-            let loc = touch.locationInNode(remoteNode)
+            let loc = touch!.locationInNode(remoteNode)
             if CGRectContainsPoint(remoteUpNode.frame, loc) {
-                println("up")
+                print("up")
                 var raw = selection.rawValue
                 if raw == 0 {
                     raw = 2
@@ -270,7 +270,7 @@ class MenuScene: SKScene {
                 }
                 selection = Mode(rawValue: raw)!
             } else if CGRectContainsPoint(remoteDownNode.frame, loc) {
-                println("down")
+                print("down")
                 var raw = selection.rawValue
                 if raw == 2 {
                     raw = 0
@@ -280,7 +280,7 @@ class MenuScene: SKScene {
                 selection = Mode(rawValue: raw)!
             } else if CGRectContainsPoint(remoteGoNode.frame, loc) {
                 runAction(SKAction.playSoundFileNamed("select.caf", waitForCompletion: false))
-                println("go")
+                print("go")
                 //do something based on the current selection
                 //move down
                 let hideRemote = SKAction.moveToY(-1 * remoteNode.size.height / 2, duration: 0.25)
@@ -303,7 +303,7 @@ class MenuScene: SKScene {
     //MARK: Transitions to game
     
     func transitionToSingleMode() {
-        println("transitioning to single player")
+        print("transitioning to single player")
         let singleModeScene = SinglePlayerScene(size: size)
         view?.presentScene(singleModeScene, transition: SKTransition.fadeWithDuration(1.0))
     }
