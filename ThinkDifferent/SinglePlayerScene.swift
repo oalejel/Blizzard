@@ -24,8 +24,7 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     var gameField: SKSpriteNode!
     var outlineNode: SKCropNode!
     
-    
-    var joystick: Joystick!
+    //var joystick: Joystick!
     
     var generationAction: SKAction!
     
@@ -33,6 +32,11 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     
     var lastTime: NSTimeInterval = 0
     var blockSize: CGSize!
+    
+    var touchStart: CGPoint!
+    var touchDistance: CGFloat!
+    var lastX: CGFloat!
+    var lastY: CGFloat!
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -42,7 +46,7 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         blockSize = CGSizeMake(bwh, bwh)
         
         let outlineWidth = size.width
-        let outlineHeight = size.height - 100
+        let outlineHeight = size.height
         outlineNode = SKCropNode()
         outlineNode.position = CGPointMake(size.width / 2, size.height - outlineHeight / 2)
         outlineNode.maskNode = SKSpriteNode(color: SKColor.blackColor(), size: CGSizeMake(outlineWidth - 4, outlineHeight - 4))
@@ -66,7 +70,7 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor.blackColor()
         addChild(outlineNode)
         //draw the player and begin the block generation loop
-        drawController()
+        //drawController()
         drawPlayer()
         startGeneration()
     }
@@ -121,25 +125,25 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func update(currentTime: NSTimeInterval) {
-        if playing {
-            //see if joystick is moving
-            if joystick.velocity.x != 0 || joystick.velocity.y != 0 {
-                if lastTime == 0 {
-                    lastTime = currentTime
-                }
-                let delta = (CGFloat(currentTime - lastTime) + 1) / 12
-                lastTime = currentTime
-                
-                let vx = joystick.velocity.x * delta
-                let vy = joystick.velocity.y * delta
-//                let vector = CGVector(dx: vx, dy: vy)
-//                playerNode.physicsBody?.applyForce(vector)
-                playerNode.position.x += vx
-                playerNode.position.y += vy
-            }
-        }
-    }
+//    override func update(currentTime: NSTimeInterval) {
+//        if playing {
+//            //see if joystick is moving
+//            if joystick.velocity.x != 0 || joystick.velocity.y != 0 {
+//                if lastTime == 0 {
+//                    lastTime = currentTime
+//                }
+//                let delta = (CGFloat(currentTime - lastTime) + 1) / 12
+//                lastTime = currentTime
+//                
+//                let vx = joystick.velocity.x * delta
+//                let vy = joystick.velocity.y * delta
+////                let vector = CGVector(dx: vx, dy: vy)
+////                playerNode.physicsBody?.applyForce(vector)
+//                playerNode.position.x += vx
+//                playerNode.position.y += vy
+//            }
+//        }
+//    }
     
     //MARK: Logic
     
@@ -210,15 +214,40 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: Drawing Initializers
     
-    func drawController() {
-        let backNode = SKSpriteNode(imageNamed: "backdrop.png")
-        let height: CGFloat = 100
-        backNode.size = CGSizeMake(height, height)
-        let thumbNode = SKSpriteNode(imageNamed: "thumb.png")
-        thumbNode.size = CGSizeMake(height / 1.8, height / 1.8)
-        joystick = Joystick(thumb: thumbNode, andBackdrop: backNode)
+//    func drawController() {
+//        let backNode = SKSpriteNode(imageNamed: "backdrop.png")
+//        let height: CGFloat = 100
+//        backNode.size = CGSizeMake(height, height)
+//        let thumbNode = SKSpriteNode(imageNamed: "thumb.png")
+//        thumbNode.size = CGSizeMake(height / 1.8, height / 1.8)
+//        joystick = Joystick(thumb: thumbNode, andBackdrop: backNode)
+//        
+//        joystick.position = CGPointMake(size.width - height / 2, height / 2)
+//        addChild(joystick)
+//    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        touchStart = touches.first?.locationInNode(self)
+        lastX = touchStart.x
+        lastY = touchStart.y
+//        let offsetX = playerNode.position.x + touchStart.x
+//        let offsetY = playerNode.position.y + touchStart.y
+        //touchDistance = sqrt(pow(touchStart.x - playerNode.position.x, 2) + pow(touchStart.y - playerNode.position.y, 2))
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        joystick.position = CGPointMake(size.width - height / 2, height / 2)
-        addChild(joystick)
+        let touch = touches.first
+        let fingerLocation = touch!.locationInNode(self)
+        let newX = fingerLocation.x
+        let newY = fingerLocation.y
+        
+        let offsetX = newX - lastX
+        let offsetY = newY - lastY
+        let vector = CGVectorMake(offsetX, offsetY)
+        playerNode.runAction(SKAction.moveBy(vector, duration: 0))
+        
+        lastX = newX
+        lastY = newY
     }
 }
