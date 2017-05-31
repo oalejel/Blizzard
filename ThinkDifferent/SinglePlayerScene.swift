@@ -9,39 +9,94 @@
 import Foundation
 import SpriteKit
 
+class GameBlock: SKSpriteNode {
+    enum BlockType: Int {
+        case Normal, Slow, Fast, Tilt
+    }
+    
+    //bloacktype describes the block/s powerup/down if it has any
+    var blockType = BlockType.Normal {
+        didSet {
+            switch (blockType) {
+            case .Normal:
+                break
+            case .Slow:
+                color = SKColor.blueColor()
+                break
+            case .Fast:
+                color = SKColor.orangeColor()
+                break
+            case .Tilt:
+                color = UIColor.greenColor()
+                break
+            }
+            
+            if blockType != .Normal {
+                let fadeOut = SKAction.fadeAlphaTo(0.1, duration: 0.7)
+                let fadeIn = SKAction.fadeAlphaTo(1, duration: 0.7)
+                let sequence = SKAction.sequence([fadeOut, fadeIn])
+                let infinite = SKAction.repeatActionForever(sequence)
+                runAction(infinite)
+            }
+        }
+        
+    }
+    
+    func randomPowerup() {
+        let randomRaw = 1 + (random() % 3)
+        blockType = BlockType(rawValue: randomRaw)!
+    }
+}
+
 class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     
-    var playing: Bool = true
+    //visual
     
-    var generationDelay: Double = 0.23
-    var blockFallDuration = 5.0
-
-    var blocks: [SKSpriteNode] = []
     
+    var freezeOn = false
     var playerNode: SKSpriteNode!
     var subPlayerNode: SKSpriteNode!
     
     var gameField: SKSpriteNode!
     var outlineNode: SKCropNode!
     
-    //var joystick: Joystick!
+    //logic
+    
+    var playing: Bool = true
+    
+    var generationDelay: Double = 0.23
+    
+    
+    var blockFallDuration = 5.0
+    var fallDurationStandard = 5.0
+    
+    var blocks: [GameBlock] = []
     
     var generationAction: SKAction!
-    
-    var score = 0
     
     var lastTime: NSTimeInterval = 0
     var blockSize: CGSize!
     
+    //interaction
+    
     var touchStart: CGPoint!
-    var touchDistance: CGFloat!
     var lastX: CGFloat!
     var lastY: CGFloat!
+    
+    var newPowerupCounter = 0
+    let newPowerupConstant = 20//every 20 blocks...
+    
+    //Making it fun
+    var score = 0
+    enum GameEvent {
+        case Fast, Slow, Slanted, Gyro
+    }
     
     override init(size: CGSize) {
         super.init(size: size)
         
-        blockFallDuration = Double(size.height) * 0.017
+        blockFallDuration = Double(size.height) * 0.012
+        fallDurationStandard = blockFallDuration
         let bwh = 0.042 * size.width // a nice ratio with the scree width
         blockSize = CGSizeMake(bwh, bwh)
         
@@ -69,10 +124,9 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         
         backgroundColor = SKColor.blackColor()
         addChild(outlineNode)
-        //draw the player and begin the block generation loop
-        //drawController()
         drawPlayer()
         startGeneration()
+        runAction(SKAction())
     }
     
     //MARK: - Drawing Functions
@@ -88,17 +142,15 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func drawPlayer() {
-        //draw/ update player
         if (playerNode == nil) {
             //set outline color (the node itself) and a dark blue as a child node
             let outColor = SKColor(red: 0.047, green: 0.78, blue: 1.0, alpha: 1.0)
             let inColor = SKColor(red: 0.047, green: 0.509, blue: 0.9, alpha: 1.0)
             let wh = 0.0378 * size.width
             playerNode = SKSpriteNode(color: outColor, size: CGSizeMake(wh, wh))
-            let childSize = CGSizeMake(playerNode.size.width - 2, playerNode.size.height - 2)
+            let childSize = CGSizeMake(playerNode.size.width * 0.9, playerNode.size.height * 0.9)
             subPlayerNode = SKSpriteNode(color: inColor, size: childSize)
             playerNode.addChild(subPlayerNode)
-            //set position
             playerNode.position = CGPointMake(0, 0)
             
             gameField.addChild(playerNode)
@@ -109,13 +161,25 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         //get random x value
         let arcRand = Int(arc4random_uniform(10000))
         let x = Int(size.width / 2) - (Int(arcRand) % Int(size.width))
-        let newBlock = SKSpriteNode(color: SKColor.whiteColor(), size: blockSize)
+        let newBlock = GameBlock(color: SKColor.whiteColor(), size: blockSize)
         newBlock.position = CGPointMake(CGFloat(x), gameField.size.height / 2)
         //give it a dropping action
         newBlock.runAction(SKAction.moveToY((gameField.size.height * -0.5) - 5 - newBlock.size.height / 2, duration: blockFallDuration))
         
+        if newPowerupCounter == newPowerupConstant {
+            newBlock.randomPowerup()
+            newPowerupCounter = 0
+        }
+        
         blocks.append(newBlock)
         gameField.addChild(newBlock)
+        
+        //for new powerups
+        newPowerupCounter++
+    }
+    
+    func randomPower() {
+
     }
     
     override func didSimulatePhysics() {
@@ -125,31 +189,11 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-//    override func update(currentTime: NSTimeInterval) {
-//        if playing {
-//            //see if joystick is moving
-//            if joystick.velocity.x != 0 || joystick.velocity.y != 0 {
-//                if lastTime == 0 {
-//                    lastTime = currentTime
-//                }
-//                let delta = (CGFloat(currentTime - lastTime) + 1) / 12
-//                lastTime = currentTime
-//                
-//                let vx = joystick.velocity.x * delta
-//                let vy = joystick.velocity.y * delta
-////                let vector = CGVector(dx: vx, dy: vy)
-////                playerNode.physicsBody?.applyForce(vector)
-//                playerNode.position.x += vx
-//                playerNode.position.y += vy
-//            }
-//        }
-//    }
-    
     //MARK: Logic
     
-    func removeBlockNodeWithIndex(block: SKSpriteNode, index: Int){
-        block.removeFromParent()
+    func removeBlockNodeWithIndex(block: SKSpriteNode, index: Int) {
         blocks.removeAtIndex(index)
+        block.removeFromParent()
         block.removeAllActions()
         score++
     }
@@ -182,9 +226,46 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
             }
             
             if collided {
-                print("-----collided------")
+                //test if special!!!
+                if block.blockType != .Normal {
+                    
+                    switch (block.blockType) {
+                    case .Normal:
+                        break
+                    case .Slow:
+                        if blockFallDuration < fallDurationStandard {
+                            blockFallDuration *= 1.4
+                        }
+                        break
+                    case .Fast:
+                        blockFallDuration /= 1.4
+                        break
+                    case .Tilt:
+                        for b in blocks {
+                            if freezeOn {
+                                if b.blockType == .Tilt {
+                                    removeBlockNodeWithIndex(block, index: index)
+                                }
+                                freezeOn = false
+                            } else {
+                                if b.blockType == .Normal {
+                                    b.removeAllActions()
+                                    b.color = SKColor.grayColor()
+                                }
+                                freezeOn = true
+                            }
+                        }
+                        break
+                    }
+                    
+                    removeBlockNodeWithIndex(block, index: index)
+                    return//so that we dont make the block bigger
+                }
+                
+                runAction(SKAction.playSoundFileNamed("bump.caf", waitForCompletion: false))
+                print("-----collided-_-_-_-_-_-")
                 removeBlockNodeWithIndex(block, index: index)
-                expandPlayer();
+                expandPlayer()
             } else if block.position.y <= (gameField.size.height * -0.5) - 5 - block.size.height / 2 {
                 print("removing block")
                 removeBlockNodeWithIndex(block, index: index)
@@ -210,44 +291,40 @@ class SinglePlayerScene: SKScene, SKPhysicsContactDelegate {
         for block: SKSpriteNode in blocks {
             block.runAction(SKAction.scaleTo(0, duration: 2.0))
         }
+        runAction(SKAction.playSoundFileNamed("crash.caf", waitForCompletion: false))
     }
     
     //MARK: Drawing Initializers
     
-//    func drawController() {
-//        let backNode = SKSpriteNode(imageNamed: "backdrop.png")
-//        let height: CGFloat = 100
-//        backNode.size = CGSizeMake(height, height)
-//        let thumbNode = SKSpriteNode(imageNamed: "thumb.png")
-//        thumbNode.size = CGSizeMake(height / 1.8, height / 1.8)
-//        joystick = Joystick(thumb: thumbNode, andBackdrop: backNode)
-//        
-//        joystick.position = CGPointMake(size.width - height / 2, height / 2)
-//        addChild(joystick)
-//    }
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        touchStart = touches.first?.locationInNode(self)
-        lastX = touchStart.x
-        lastY = touchStart.y
-//        let offsetX = playerNode.position.x + touchStart.x
-//        let offsetY = playerNode.position.y + touchStart.y
-        //touchDistance = sqrt(pow(touchStart.x - playerNode.position.x, 2) + pow(touchStart.y - playerNode.position.y, 2))
+        if playing{
+            touchStart = touches.first?.locationInNode(self)
+            lastX = touchStart.x
+            lastY = touchStart.y
+            //        let offsetX = playerNode.position.x + touchStart.x
+            //        let offsetY = playerNode.position.y + touchStart.y
+            //touchDistance = sqrt(pow(touchStart.x - playerNode.position.x, 2) + pow(touchStart.y - playerNode.position.y, 2))
+        } else {
+            view?.presentScene(NewMenuScene(size: size), transition: SKTransition.fadeWithDuration(1.0))
+        }
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        let touch = touches.first
-        let fingerLocation = touch!.locationInNode(self)
-        let newX = fingerLocation.x
-        let newY = fingerLocation.y
-        
-        let offsetX = newX - lastX
-        let offsetY = newY - lastY
-        let vector = CGVectorMake(offsetX, offsetY)
-        playerNode.runAction(SKAction.moveBy(vector, duration: 0))
-        
-        lastX = newX
-        lastY = newY
+        if playing {
+            let touch = touches.first
+            let fingerLocation = touch!.locationInNode(self)
+            let newX = fingerLocation.x
+            let newY = fingerLocation.y
+            
+            let offsetX = newX - lastX
+            let offsetY = newY - lastY
+            let vector = CGVectorMake(offsetX, offsetY)
+            playerNode.runAction(SKAction.moveBy(vector, duration: 0))
+            
+            lastX = newX
+            lastY = newY
+        }
     }
+    
+    
 }

@@ -16,8 +16,8 @@
 		3D1F7F921ABC88F400061DE9 /* ThinkDifferentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F7F911ABC88F400061DE9 /* ThinkDifferentTests.swift */; };
 		3D2DFD5F1ADC9A8C005D9F07 /* Atari Classic Chunky in Resources */ = {isa = PBXBuildFile; fileRef = 3D2DFD5E1ADC9A8C005D9F07 /* Atari Classic Chunky */; };
 		3D41F1021ACF27F800E832C9 /* backdrop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41F1011ACF27F800E832C9 /* backdrop@2x.png */; };
-		3D6D71931ACDB9EA0080DBB8 /* scroll.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D71921ACDB9EA0080DBB8 /* scroll.caf */; };
-		3D8A637A1ACDE84F00AE50A6 /* step.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A63791ACDE84F00AE50A6 /* step.caf */; };
+		3D6D71931ACDB9EA0080DBB8 /* crash.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D71921ACDB9EA0080DBB8 /* crash.caf */; };
+		3D8A637A1ACDE84F00AE50A6 /* bump.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A63791ACDE84F00AE50A6 /* bump.caf */; };
 		3D8A637E1ACDEA3700AE50A6 /* ch1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637B1ACDEA3700AE50A6 /* ch1@2x.png */; };
 		3D8A637F1ACDEA3700AE50A6 /* ch2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637C1ACDEA3700AE50A6 /* ch2@2x.png */; };
 		3D8A63801ACDEA3700AE50A6 /* ch3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8A637D1ACDEA3700AE50A6 /* ch3@2x.png */; };
@@ -28,6 +28,7 @@
 		3DC02F491C547F02009D5340 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02F481C547F02009D5340 /* Global.swift */; };
 		3DC02F4D1C54812E009D5340 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02F4C1C54812E009D5340 /* SoundManager.swift */; };
 		3DC02F4F1C548A29009D5340 /* blizzsound.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DC02F4E1C548A29009D5340 /* blizzsound.aiff */; };
+		3DC02F511C549291009D5340 /* NewMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC02F501C549291009D5340 /* NewMenuScene.swift */; };
 		3DCD9C661AD565E800BDCD56 /* thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DCD9C651AD565E800BDCD56 /* thumb@2x.png */; };
 		3DE3BD381ABCAE0300777F01 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE3BD371ABCAE0300777F01 /* SpriteKit.framework */; };
 		3DE3BD3A1ABCAE3A00777F01 /* SinglePlayerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */; };
@@ -57,8 +58,8 @@
 		3D1F7F911ABC88F400061DE9 /* ThinkDifferentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkDifferentTests.swift; sourceTree = "<group>"; };
 		3D2DFD5E1ADC9A8C005D9F07 /* Atari Classic Chunky */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Atari Classic Chunky"; sourceTree = "<group>"; };
 		3D41F1011ACF27F800E832C9 /* backdrop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backdrop@2x.png"; sourceTree = "<group>"; };
-		3D6D71921ACDB9EA0080DBB8 /* scroll.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = scroll.caf; sourceTree = "<group>"; };
-		3D8A63791ACDE84F00AE50A6 /* step.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = step.caf; sourceTree = "<group>"; };
+		3D6D71921ACDB9EA0080DBB8 /* crash.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = crash.caf; sourceTree = "<group>"; };
+		3D8A63791ACDE84F00AE50A6 /* bump.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bump.caf; sourceTree = "<group>"; };
 		3D8A637B1ACDEA3700AE50A6 /* ch1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ch1@2x.png"; sourceTree = "<group>"; };
 		3D8A637C1ACDEA3700AE50A6 /* ch2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ch2@2x.png"; sourceTree = "<group>"; };
 		3D8A637D1ACDEA3700AE50A6 /* ch3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ch3@2x.png"; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 		3DC02F481C547F02009D5340 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		3DC02F4C1C54812E009D5340 /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundManager.swift; path = ../SoundManager.swift; sourceTree = "<group>"; };
 		3DC02F4E1C548A29009D5340 /* blizzsound.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = blizzsound.aiff; sourceTree = "<group>"; };
+		3DC02F501C549291009D5340 /* NewMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMenuScene.swift; sourceTree = "<group>"; };
 		3DCD9C651AD565E800BDCD56 /* thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb@2x.png"; sourceTree = "<group>"; };
 		3DE3BD371ABCAE0300777F01 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerScene.swift; sourceTree = "<group>"; };
@@ -125,13 +127,14 @@
 				3D1F7F7D1ABC88F100061DE9 /* ViewController.swift */,
 				3D1F7F7F1ABC88F100061DE9 /* Main.storyboard */,
 				3D1996581ACB40FB0057CD72 /* MenuScene.swift */,
+				3DC02F501C549291009D5340 /* NewMenuScene.swift */,
 				3DE3BD391ABCAE3A00777F01 /* SinglePlayerScene.swift */,
 				3D1F7F821ABC88F300061DE9 /* Images.xcassets */,
 				3D1F7F841ABC88F300061DE9 /* LaunchScreen.xib */,
 				3DC02F4E1C548A29009D5340 /* blizzsound.aiff */,
 				3D8A63821ACDFF5700AE50A6 /* select.caf */,
-				3D8A63791ACDE84F00AE50A6 /* step.caf */,
-				3D6D71921ACDB9EA0080DBB8 /* scroll.caf */,
+				3D8A63791ACDE84F00AE50A6 /* bump.caf */,
+				3D6D71921ACDB9EA0080DBB8 /* crash.caf */,
 				3D41F1011ACF27F800E832C9 /* backdrop@2x.png */,
 				3DCD9C651AD565E800BDCD56 /* thumb@2x.png */,
 				3DBCD8D51ACC99BA00149E99 /* Press Start */,
@@ -280,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D8A63801ACDEA3700AE50A6 /* ch3@2x.png in Resources */,
-				3D8A637A1ACDE84F00AE50A6 /* step.caf in Resources */,
+				3D8A637A1ACDE84F00AE50A6 /* bump.caf in Resources */,
 				3DBCD8D81ACCB08000149E99 /* prstart.ttf in Resources */,
 				3DCD9C661AD565E800BDCD56 /* thumb@2x.png in Resources */,
 				3D2DFD5F1ADC9A8C005D9F07 /* Atari Classic Chunky in Resources */,
@@ -288,7 +291,7 @@
 				3D8A637E1ACDEA3700AE50A6 /* ch1@2x.png in Resources */,
 				3DC02F4F1C548A29009D5340 /* blizzsound.aiff in Resources */,
 				3D8A63831ACDFF5700AE50A6 /* select.caf in Resources */,
-				3D6D71931ACDB9EA0080DBB8 /* scroll.caf in Resources */,
+				3D6D71931ACDB9EA0080DBB8 /* crash.caf in Resources */,
 				3D1F7F811ABC88F100061DE9 /* Main.storyboard in Resources */,
 				3D1F7F861ABC88F300061DE9 /* LaunchScreen.xib in Resources */,
 				3D1F7F831ABC88F300061DE9 /* Images.xcassets in Resources */,
@@ -318,6 +321,7 @@
 				3D1F7F7E1ABC88F100061DE9 /* ViewController.swift in Sources */,
 				3D1F7F7C1ABC88F000061DE9 /* AppDelegate.swift in Sources */,
 				3DC02F491C547F02009D5340 /* Global.swift in Sources */,
+				3DC02F511C549291009D5340 /* NewMenuScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +452,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ThinkDifferent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alejel.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Blizzard;
@@ -468,7 +472,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ThinkDifferent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alejel.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Blizzard;

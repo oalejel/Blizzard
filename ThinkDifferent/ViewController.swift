@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         let skView = view as! SKView
 //        let scene = MenuScene(size: skView.frame.size)
-        let scene = MenuScene(size: skView.frame.size)
+        let scene = NewMenuScene(size: skView.frame.size)
         scene.size = view.frame.size
         scene.scaleMode = .ResizeFill
         skView.presentScene(scene)

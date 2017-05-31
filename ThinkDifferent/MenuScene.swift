@@ -266,7 +266,7 @@ class MenuScene: SKScene {
                 if raw == 0 {
                     raw = 2
                 } else {
-                    raw--
+                    raw -= 1
                 }
                 selection = Mode(rawValue: raw)!
             } else if CGRectContainsPoint(remoteDownNode.frame, loc) {
@@ -275,7 +275,7 @@ class MenuScene: SKScene {
                 if raw == 2 {
                     raw = 0
                 } else {
-                    raw++
+                    raw + 1
                 }
                 selection = Mode(rawValue: raw)!
             } else if CGRectContainsPoint(remoteGoNode.frame, loc) {
